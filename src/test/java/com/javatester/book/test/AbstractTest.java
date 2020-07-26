@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.javatester.book.Book;
-import com.javatester.book.dao.BookDAO;
+import com.javatester.book.dao.BookService;
 import com.javatester.book.parse.Parser;
-import com.javatester.book.person.Person;
-import com.javatester.book.person.PersonTest;
+import com.javatester.book.pojo1.Person;
+import com.javatester.book.pojo2.Book;
+import com.javatester.book.pojo2.PersonTest;
 import com.javatester.book.rest.BookController;
 
 public abstract class AbstractTest {
@@ -35,7 +35,7 @@ public abstract class AbstractTest {
 		return RAND.longs(min, max).findFirst().getAsLong();
 	}
 	
-	public static final LocalDate randomDate(int minYear, int maxYear) {
+	public static LocalDate randomDate(int minYear, int maxYear) {
 		long minDay = LocalDate.of(minYear, 1, 1).toEpochDay();
 	    long maxDay = LocalDate.of(maxYear, 12, 31).toEpochDay();
 	    long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
@@ -43,7 +43,7 @@ public abstract class AbstractTest {
 	}
 	
 	public static Book newBook() {
-		return (Book)newInstance("com.javatester.book.BookImpl");
+		return (Book)newInstance("com.javatester.book.pojo2.BookImpl");
 	}
 	
 	public static Book newBook( String title, long isbn, Person author, int pages, 
@@ -59,7 +59,7 @@ public abstract class AbstractTest {
 	}
 	
 	public static Person newPerson() {
-		return (Person)newInstance("com.javatester.book.person.PersonImpl");
+		return (Person)newInstance("com.javatester.book.pojo1.PersonImpl");
 	}
 	
 	public static Person newPerson( String firstName, String lastName,
@@ -71,8 +71,8 @@ public abstract class AbstractTest {
 		return person;
 	}
 	
-	public static BookDAO newBookDAO() {
-		return (BookDAO)newInstance("com.javatester.book.dao.BookDAOImpl");
+	public static BookService newBookService() {
+		return (BookService)newInstance("com.javatester.book.dao.BookServiceImpl");
 	}
 	
 	public static Parser newParser() {
@@ -83,11 +83,15 @@ public abstract class AbstractTest {
 		return (BookController)newInstance("com.javatester.book.rest.BookControllerImpl");
 	}
 	
-	public static final Person randomPerson() {
-		return newPerson( randomName(true), randomName(false), randomDate(1950,2010) );
+	public static Person randomPerson() {
+		return newPerson( randomFirstName(), randomLastName(), randomDate(1950,2010) );
 	}
+
+	public static String randomFirstName() { return randName(true); }
+
+	public static String randomLastName() { return randName(false);}
 	
-	public static final String randomName(boolean firstName) {
+	private static String randName(boolean firstName) {
 		final String[] first = new String[] { "Liam", "Noah", "William", "James", "Oliver", "Benjamin", "Elijah",
 				"Lucas", "Mason", "Logan", "Alexander", "Ethan", "Jacob", "Michael", "Daniel", "Henry", "Jackson",
 				"Sebastian", "Aiden", "Matthew", "Samuel", "David", "Joseph", "Carter", "Owen", "Wyatt", "John", "Jack",
@@ -102,7 +106,7 @@ public abstract class AbstractTest {
 				"Gavin", "Chase", "Kai", "Emmett", "Harrison", "Nathaniel", "Kingston", "Cole", "Tyler", "Bennett",
 				"Bentley", "Ryker", "Tristan", "Brandon", "Kevin", "Luis", "George", "Ashton", "Rowan", "Braxton",
 				"Ryder", "Gael", "Ivan", "Diego", "Maxwell", "Max", "Carlos", "Kaiden", "Juan", "Maddox", "Justin",
-				"Waylon", "Calvin", "Giovanni", "Jonah", "Abel", "Jayce", "Jesus", "", "Amir", "King", "Beau", "Camden",
+				"Waylon", "Calvin", "Giovanni", "Jonah", "Abel", "Jayce", "Jesus", "Amy", "Amir", "King", "Beau", "Camden",
 				"Alex", "Jasper", "Malachi", "Brody", "Jude", "Blake", "Emmanuel", "Eric", "Brooks", "Elliot",
 				"Antonio", "Abraham", "Timothy", "Finn", "Rhett", "Elliott", "Edward", "August", "Xander", "Alan",
 				"Dean", "Lorenzo", "Bryce", "Karter", "Victor", "Milo", "Miguel", "Hayden", "Graham", "Grant", "Zion",
@@ -117,7 +121,7 @@ public abstract class AbstractTest {
 				"Amari", "Sean", "Chance", "Walter", "Martin", "Finley", "Andre", "Tobias", "Cash", "Corbin", "Arlo",
 				"Iker", "Erick", "Emerson", "Gunner", "Cody", "Stephen", "Francisco", "Killian", "Dallas", "Reid",
 				"Manuel", "Lane", "Atlas", "Rylan", "Jensen", "Ronan", "Beckham", "Daxton", "Anderson", "Kameron",
-				"Raymond", "", "Orion", "Cristian", "Tanner", "Kyler", "Jett", "Cohen", "Ricardo", "Spencer", "Gideon",
+				"Raymond", "Amanda", "Orion", "Cristian", "Tanner", "Kyler", "Jett", "Cohen", "Ricardo", "Spencer", "Gideon",
 				"Ali", "Fernando", "Jaiden", "Titus", "Travis", "Bodhi", "Eduardo", "Dante", "Ellis", "Prince", "Kane",
 				"Luka", "Kash", "Hendrix", "Desmond", "Donovan", "Mario", "Atticus", "Cruz", "Garrett", "Hector",
 				"Angelo", "Jeffrey", "Edwin", "Cesar", "Zayn", "Devin", "Conor", "Warren", "Odin", "Jayceon", "Romeo",
@@ -131,7 +135,7 @@ public abstract class AbstractTest {
 				"Finnegan", "Ruben", "Gianni", "Porter", "Kendrick", "Leland", "Pablo", "Allen", "Hugo", "Raiden",
 				"Kolton", "Remy", "Ezequiel", "Damon", "Emanuel", "Zaiden", "Otto", "Bowen", "Marcos", "Abram", "Kasen",
 				"Franklin", "Royce", "Jonas", "Sage", "Philip", "Esteban", "Drake", "Kashton", "Roberto", "Harvey",
-				"Alexis", "Kian", "Jamison", "Maximilian", "", "Adan", "Milan", "Phillip", "Albert", "Dax", "Mohamed",
+				"Alexis", "Kian", "Jamison", "Maximilian", "Jennifer", "Adan", "Milan", "Phillip", "Albert", "Dax", "Mohamed",
 				"Ronin", "Kamden", "Hank", "Memphis", "Oakley", "Augustus", "Drew", "Moises", "Armani", "Rhys",
 				"Benson", "Jayson", "Kyson", "Braylen", "Corey", "Gunnar", "Omari", "Alonzo", "Landen", "Armando",
 				"Derrick", "Dexter", "Enrique", "Bruce", "Nikolai", "Francis", "Rocco", "Kairo", "Royal", "Zachariah",
@@ -302,19 +306,9 @@ public abstract class AbstractTest {
 	}
 	
 	public static List<Book> randomBookList(int size) {
-		List<Book> l = new ArrayList<Book>();
+		List<Book> l = new ArrayList<Book>(size);
 		for (int i = 0; i < size; i++  ) {
 			l.add( randomBook() );
-		}
-		return l;
-	}
-	
-	public static List<Book> randomBookList(int size, Person author) {
-		List<Book> l = new ArrayList<Book>();
-		for (int i = 0; i < size; i++  ) {
-			l.add( newBook( randomTitle(), randomLong(0, 999999999),
-			        PersonTest.randomPerson(), randomInt(20,880), 
-			        randomGenre(), randomDate(1950, 2010) ) );
 		}
 		return l;
 	}
@@ -324,7 +318,7 @@ public abstract class AbstractTest {
 		 return g[randomInt(0, g.length)];
 	}
 	
-	public static final String randomTitle() {
+	public static String randomTitle() {
 		final String[] nouns = new String[] { "People", "History", "Way", "Art", "World", "Information", "Map", "Two",
 				"Family", "Government", "Health", "System", "Computer", "Meat", "Year", "Thanks", "Music", "Person",
 				"Reading", "Method", "Data", "Food", "Understanding", "Theory", "Law", "Bird", "Literature", "Problem",

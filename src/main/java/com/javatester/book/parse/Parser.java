@@ -3,8 +3,8 @@ package com.javatester.book.parse;
 import java.util.List;
 import java.util.Map;
 
-import com.javatester.book.Book;
-import com.javatester.book.person.Person;
+import com.javatester.book.pojo1.Person;
+import com.javatester.book.pojo2.Book;
 
 public interface Parser {
 
@@ -75,11 +75,11 @@ public interface Parser {
 	 * Find all books with a publicationDate before the author was born. For
 	 * example, given these books:
 	 * 
-	 * 		"Book A"  published in 1962, written by Author1 born in 1999.
-	 *      "Book B"  published in 2010, written by Author2 born in 1979.
-	 *      "Book C"  published in 1979, written by Author3 born in 1965.
-	 *      "Book D"  published in 2019, written by Author4 born in 1961.
-	 *      "Book E"  published in 1971, written by Author5 born in 1978.
+	 * 		"Book A"  published in 1962, written by Author1 born in 1999
+	 *      "Book B"  published in 2010, written by Author2 born in 1979
+	 *      "Book C"  published in 1979, written by Author3 born in 1965
+	 *      "Book D"  published in 2019, written by Author4 born in 1961
+	 *      "Book E"  published in 1971, written by Author5 born in 1978
 	 *      
 	 * Then this method would return: Book A and Book E.
 	 */

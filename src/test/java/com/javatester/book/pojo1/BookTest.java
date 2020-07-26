@@ -1,10 +1,11 @@
-package com.javatester.book;
+package com.javatester.book.pojo1;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
-import com.javatester.book.person.Person;
+
+import com.javatester.book.pojo2.Book;
 import com.javatester.book.test.AbstractTest;
 
 /* DO NOT MODIFY THIS CLASS! */

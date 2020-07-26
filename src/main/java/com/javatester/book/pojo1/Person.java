@@ -1,7 +1,8 @@
-package com.javatester.book.person;
+package com.javatester.book.pojo1;
 
 import java.time.LocalDate;
 
+/* DO NOT MODIFY! */
 public interface Person {
 	
 	public String getFirstName();

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.javatester.book.Book;
+import com.javatester.book.pojo2.Book;
 
 public interface BookController {
 

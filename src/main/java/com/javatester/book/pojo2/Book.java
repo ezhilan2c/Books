@@ -1,8 +1,8 @@
-package com.javatester.book;
+package com.javatester.book.pojo2;
 
 import java.time.LocalDate;
 
-import com.javatester.book.person.Person;
+import com.javatester.book.pojo1.Person;
 
 public interface Book {
 	

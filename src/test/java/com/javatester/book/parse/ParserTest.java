@@ -4,11 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
-import com.javatester.book.Book;
-import com.javatester.book.BookTest;
-import com.javatester.book.person.Person;
-import com.javatester.book.person.PersonTest;
+
+import com.javatester.book.pojo1.Person;
+import com.javatester.book.pojo2.Book;
 import com.javatester.book.test.AbstractTest;
 
 /* DO NOT MODIFY THIS CLASS! */
@@ -20,7 +21,7 @@ public class ParserTest extends AbstractTest {
 	
 	@Test void testBooksByGenreWithoutAuthor() {
 		Parser parser = newParser();
-		List<Book> list = BookTest.randomBookList(1000);
+		List<Book> list = randomBookList(1000);
 		Map<Book.Genre,List<Book>> map = parser.booksByGenre(list, null);
 		for ( Map.Entry<Book.Genre, List<Book>> entry : map.entrySet() ) {
 			for ( Book book : entry.getValue() ) {
@@ -31,9 +32,10 @@ public class ParserTest extends AbstractTest {
 	
 	@Test void testBooksByGenreWithAuthor() {
 		Parser parser = newParser();
-		Person author = PersonTest.randomPerson();
-		List<Book> b1 = BookTest.randomBookList(1000);
-		List<Book> b2 = BookTest.randomBookList(100, author);
+		Person author = randomPerson();
+		List<Book> b1 = randomBookList(1000);
+		List<Book> b2 = randomBookList(100);
+		b1.forEach(b -> b.setAuthor(author));
 		b1.addAll(b2);
 		Map<Book.Genre,List<Book>> map = parser.booksByGenre(b1, author);
 		for ( Map.Entry<Book.Genre, List<Book>> entry : map.entrySet() ) {
@@ -46,17 +48,17 @@ public class ParserTest extends AbstractTest {
 	
 	@Test void testCountOfBooksBySize() {
 		Parser parser = newParser();
-		List<Book> list = BookTest.randomBookList(1000);
+		List<Book> list = randomBookList(1000);
 		long[] sizes = countSizes(list);
 		Map<Book.Size,Long> map = parser.countOfBooksBySize(list);
-		assertEquals(map.get(Book.Size.Small), sizes[0]);
-		assertEquals(map.get(Book.Size.Medium), sizes[1]);
-		assertEquals(map.get(Book.Size.Large), sizes[2]);
+		assertEquals(Optional.ofNullable(map.get(Book.Size.Small)).orElse(0L), sizes[0]);
+		assertEquals(Optional.ofNullable(map.get(Book.Size.Medium)).orElse(0L), sizes[1]);
+		assertEquals(Optional.ofNullable(map.get(Book.Size.Large)).orElse(0L), sizes[2]);
 	}
 	
 	@Test void dateErrorTest() {
 		Parser parser = newParser();
-		List<Book> list = BookTest.randomBookList(1000);
+		List<Book> list = randomBookList(1000);
 		List<Book> errorList = parser.dateError(list);
 		int i = 0;
 		for ( Book book : list ) {
