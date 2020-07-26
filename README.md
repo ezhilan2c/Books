@@ -67,7 +67,7 @@ This *coding test* is designed to test your proficiency in the following areas:
 	
 	3. Complete the exercise as completely as you can.
 	
-	3. Commit your solution to GitHub.
+	3. Commit and push your solution to GitHub.
 	
 	4. Create a pull request when you are ready to submit your final solutions.
 	
