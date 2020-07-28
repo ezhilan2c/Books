@@ -18,13 +18,13 @@ books.
 4. The Java methods should map the following HTTP methods, HTTP URLs, and
    the BookController methods to get/delete the data from the database.
 	
-   +-------------------------------------------------------+
-   |  BookController     HTTP Method     HTTP URL          |
-   +-------------------------------------------------------+
-   |  get()              GET             /books            |
-   |  get(isbn)          GET             /books/{isbn}     |
-   |  delete(isbn)       DELETE          /books/{isbn}     |
-   +-------------------------------------------------------+
+      +-------------------------------------------------------+
+      |  BookController     HTTP Method     HTTP URL          |
+      +-------------------------------------------------------+
+      |  get()              GET             /books            |
+      |  get(isbn)          GET             /books/{isbn}     |
+      |  delete(isbn)       DELETE          /books/{isbn}     |
+      +-------------------------------------------------------+
    
 ## Dependencies
 `PersonImpl`
