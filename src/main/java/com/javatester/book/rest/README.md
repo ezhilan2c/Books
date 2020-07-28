@@ -19,6 +19,8 @@ books.
    the BookController methods to get/delete the data from the database.
 
 
+Here's how the methods and URLs map:
+
       +-------------------------------------------------------+
       |  BookController     HTTP Method     HTTP URL          |
       +-------------------------------------------------------+
